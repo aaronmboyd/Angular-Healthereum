@@ -8,11 +8,16 @@ import 'rxjs/add/operator/map';
 
 import { IMedicalTest } from './medicaltest';
 
+import { CustomerService } from '../customers/customer.service';
+import { ICustomer } from '../customers/customer';
+
 @Injectable()
 export class MedicalTestService {
     private _medicalTestUrl = './api/medicaltests/medicaltests.json';
 
-    constructor(private _http: HttpClient) { }
+    customer: ICustomer;
+    errorMessage: string;
+    constructor(private _http: HttpClient, private _cusomerService: CustomerService) { }
 
     getMedicalTests(): Observable<IMedicalTest[]> {
         return this._http.get<IMedicalTest[]>(this._medicalTestUrl)
@@ -23,6 +28,24 @@ export class MedicalTestService {
     getmedicalTest(id: number): Observable<IMedicalTest> {
         return this.getMedicalTests()
             .map((medicalTests: IMedicalTest[]) => medicalTests.find(p => p.testId === id));
+    }
+
+    getcustomerMedicalTest(id: number): Observable<IMedicalTest[]> {
+        console.log('id' +id);
+        this._cusomerService.getCustomerTests(id).subscribe(
+            customer => this.customer = customer,
+            error => this.errorMessage = <any>error);
+
+        console.log('Customer: ' + this.customer);
+
+        return this._http.get<IMedicalTest[]>(this._medicalTestUrl)
+            .do(data => console.log('All: ' + JSON.stringify(data)))
+            .catch(this.handleError);
+
+        // return this._http.get<IMedicalTest[]>(this._medicalTestUrl)
+        //     .map(res => res.filter(<IMedicalTest>(x) => x.testId.contain(this.customer.medicalTests)))
+        //     .do(data => console.log('All: ' + JSON.stringify(data)))
+        //     .catch(this.handleError);
     }
 
     private handleError(err: HttpErrorResponse) {

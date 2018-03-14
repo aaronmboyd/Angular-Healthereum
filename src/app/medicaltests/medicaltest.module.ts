@@ -7,7 +7,8 @@ import { SharedModule } from './../shared/shared.module';
 @NgModule({
   imports: [
     RouterModule.forChild([
-        { path: 'medicaltests', component: MedicalTestListComponent }
+        { path: 'medicaltests', component: MedicalTestListComponent },
+        { path: 'medicaltests/:id', component: MedicalTestListComponent }
     ]),
      SharedModule
   ],

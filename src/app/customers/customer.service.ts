@@ -21,6 +21,8 @@ export class CustomerService {
     }
 
     getCustomerTests(id: number): Observable<ICustomer> {
+        console.log('getCustomerTests ' + id);
+        
         return this.getCustomers()
             .map((customers: ICustomer[]) => customers.find(p => p.customerId === id));
     }

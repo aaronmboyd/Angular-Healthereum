@@ -23,8 +23,8 @@ import { MedicalTestModule } from './medicaltests/medicaltest.module'
         { path: '**', redirectTo: 'welcome', pathMatch: 'full'}
     ]),
     ProductModule,
-    CustomerModule,
-    MedicalTestModule
+    MedicalTestModule,
+    CustomerModule
   ],
   bootstrap: [AppComponent]
 })

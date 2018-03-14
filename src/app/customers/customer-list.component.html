@@ -15,6 +15,10 @@
                 </thead>
                 <tbody>
                     <tr *ngFor='let customer of customers'>
+                            <td><a [routerLink]="['/medicaltests', customer.customerId]">
+                                {{ customer.customerName }}
+                            </a>
+						</td>
                         <td>{{ customer.customerName }}</td>
                         <td>{{ customer.customerPostCode }}</td>
                         <td>{{ customer.customerState }}</td>

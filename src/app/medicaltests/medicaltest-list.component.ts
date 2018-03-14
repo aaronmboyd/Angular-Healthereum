@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { IMedicalTest } from './medicaltest';
 import { MedicalTestService } from './medicaltest.service';
@@ -13,12 +14,34 @@ export class MedicalTestListComponent implements OnInit {
 
     medicalTests: IMedicalTest[] = [];
 
-    constructor(private _medicalTestService: MedicalTestService) {
+    constructor(private _route: ActivatedRoute,
+        private _router: Router,
+        private _medicalTestService: MedicalTestService) {
 
     }
 
     ngOnInit(): void {
+        const param = this._route.snapshot.paramMap.get('id');
+
+        if (param) {
+            const id = +param;
+            this.getMedicalTestsForCustomer(id);
+        }
+        else{
+            this.getMedicalTests();
+        }
+    }
+
+    getMedicalTests(){
         this._medicalTestService.getMedicalTests()
+                .subscribe(medicalTests => {
+                    this.medicalTests = medicalTests;
+                },
+                    error => this.errorMessage = <any>error);
+    }
+
+    getMedicalTestsForCustomer(id:number){
+        this._medicalTestService.getcustomerMedicalTest(id)
                 .subscribe(medicalTests => {
                     this.medicalTests = medicalTests;
                 },
