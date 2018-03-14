@@ -1,0 +1,29 @@
+<div class='panel panel-primary'>
+    <div class='panel-heading'>
+        {{pageTitle}}
+    </div>
+    <div class='panel-body'>
+        <div class='table-responsive'>
+            <table class='table'
+                    *ngIf='medicalTests && medicalTests.length'>
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor='let medicalTest of medicalTests'>
+                        <td>{{ medicalTest.testId }}</td>
+                        <td>{{ medicalTest.testName }}</td>
+                        <td>{{ medicalTest.testStatus }}</td>
+                     </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div *ngIf='errorMessage' class='alert alert-danger'>
+    Error: {{ errorMessage }}
+</div>

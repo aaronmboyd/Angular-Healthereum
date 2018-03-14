@@ -3,4 +3,5 @@ export interface ICustomer {
     customerName: string;
     customerPostCode: string;
     customerState: string;
+    medicalTests: Array<number>;
 }

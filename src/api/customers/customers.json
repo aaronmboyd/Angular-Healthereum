@@ -3,30 +3,45 @@
         "customerId": 1,
         "customerName": "Luke Cage",
         "customerPostCode": "3000",
-        "customerState": "VIC"
+        "customerState": "VIC",
+        "medicalTests": [
+            1,3
+        ]
     },
     {
         "customerId": 2,
         "customerName": "John Smith",
         "customerPostCode": "3030",
-        "customerState": "VIC"
+        "customerState": "VIC",
+        "medicalTests": [
+            2,4
+        ]
     },
     {
         "customerId": 3,
         "customerName": "Josh Dewar",
         "customerPostCode": "2000",
-        "customerState": "NSW"
+        "customerState": "NSW",
+        "medicalTests": [
+            3,5
+        ]
     },
     {
         "customerId": 4,
         "customerName": "Tyler Stark",
         "customerPostCode": "3156",
-        "customerState": "VIC"
+        "customerState": "VIC",
+        "medicalTests": [
+            1,5
+        ]
     },
     {
         "customerId": 5,
         "customerName": "Black Panther",
         "customerPostCode": "5000",
-        "customerState": "SA"
+        "customerState": "SA",
+        "medicalTests": [
+            1,4
+        ]
     }
 ]
