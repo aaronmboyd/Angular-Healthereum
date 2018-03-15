@@ -92,7 +92,7 @@ contract HealthereumCore is Ownable {
   }
 
   modifier labTestNotExpired (uint id) {
-    require(labTests[id].expiryTime <= now);
+    require(labTests[id].expiryTime > now);
     require(labTests[id].labTestState != uint8(LabTestState.Expired));
     _;
   }
@@ -148,6 +148,17 @@ contract HealthereumCore is Ownable {
     RevokedLabFacility(labAddress);
   }
 
+  function getLabFacilityForAddress(address labAddress) external view smartContractEnabled returns (uint8, uint, uint, uint) {
+    return (labFacilities[addressToLabFacility[labAddress]].status,
+            labFacilities[addressToLabFacility[labAddress]].acceptedCount,
+            labFacilities[addressToLabFacility[labAddress]].completedCount,
+            labFacilities[addressToLabFacility[labAddress]].cancelledCount);
+  }
+
+  function getLabStatusForAddress(address labAddress) external view smartContractEnabled returns (uint8){
+    return labFacilities[addressToLabFacility[labAddress]].status;
+  }
+
   // LabTest functions
 
   function postLabTender(string description, string testIPFSHash, string testType, uint8 postcode)
@@ -182,6 +193,32 @@ contract HealthereumCore is Ownable {
     owner.transfer(expiredCount * postLabTenderFee);
   }
 
+  function getLabTest(uint id) external view smartContractEnabled
+  returns (   string, //description;
+              string, // testIPFSHash;
+              string, // resultsIPFSHash;
+              string, // testType;
+              uint8, // postcode;
+              uint8, // labTestState;
+              uint, // postedTime;
+              uint // expiryTime;
+          )
+  {
+    require(id < labTests.length);
+    LabTest memory lt = labTests[id];
+
+    return (
+      lt.description,
+      lt.testIPFSHash,
+      lt.resultsIPFSHash,
+      lt.testType,
+      lt.postcode,
+      lt.labTestState,
+      lt.postedTime,
+      lt.expiryTime
+      );
+  }
+
   function acceptCompletedLabTest (uint id) external onlyOwner smartContractEnabled {
     require(labTests[id].labTestState == uint8(LabTestState.Completed));
 
@@ -195,7 +232,8 @@ contract HealthereumCore is Ownable {
 
   function acceptLabTest (uint id)
   external payable
-  acceptTenderFeePaid labTestNew(id) labTestNotExpired(id) labFacilityIsValid() smartContractEnabled {
+  acceptTenderFeePaid labTestNew(id) labTestNotExpired(id) labFacilityIsValid smartContractEnabled
+  {
 
     labTests[id].labTestState = uint8(LabTestState.Accepted);
     labTestToFacility[id] = msg.sender;
@@ -222,11 +260,11 @@ contract HealthereumCore is Ownable {
     LabTestCancelled(msg.sender, id);
   }
 
-  function retreiveLabTestResults(uint id) external view returns(string) {
+  function retreiveLabTestResults(uint id) external view onlyOwner returns(string) {
     return labTests[id].resultsIPFSHash;
   }
 
-  function retreiveLabTestRequest(uint id) external view returns(string) {
+  function retreiveLabTestRequest(uint id) external view onlyOwnerOf(id) returns(string) {
     return labTests[id].testIPFSHash;
   }
 }
