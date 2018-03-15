@@ -15,7 +15,7 @@ contract('HealthereumCore', function(accounts) {
 
     .then(function(instance){
       console.log(`facility = ${facility}`);
-      instance.addNewFacility(facility, status, {from: owner});
+      instance.addNewFacility("Facility1", facility, status, {from: owner});
       return instance;})
 
         .then(function(instance) {
@@ -32,12 +32,12 @@ contract('HealthereumCore', function(accounts) {
 
     .then(function(instance){
       console.log(`facility2 = ${facility2}`);
-       instance.addNewFacility(facility2, status, {from: owner});
+       instance.addNewFacility("Facility2", facility2, status, {from: owner});
        return instance;})
 
        .then(function(instance){
           console.log(`facility3 = ${facility3}`);
-          instance.addNewFacility(facility3, status, {from: owner});
+          instance.addNewFacility("Facility3", facility3, status, {from: owner});
           return instance;})
 
           .then(function(instance) {
@@ -79,7 +79,7 @@ contract('HealthereumCore', function(accounts) {
 
               .then(function(status){
                 console.log(`status ${status}`);
-                assert.equal(status[0], 0);});
+                assert.equal(status[1], 0);});
   });
 
   it("should post a lab test for tender and successfully retrieve it", function(){
@@ -161,6 +161,4 @@ contract('HealthereumCore', function(accounts) {
                 assert.equal(labTest[5], 4);
               });
   });
-
-
 })

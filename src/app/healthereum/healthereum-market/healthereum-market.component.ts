@@ -52,15 +52,17 @@ export class HealthereumMarketComponent implements OnInit {
       return;
     }
 
-    const amount = this.model.amount;
-    const receiver = this.model.receiver;
+    // Acceptance fee is .001 eth (but is required in wei)
+    const acceptanceFee = .001 * Math.pow(10,18);
+    // Retrieve from view
+    var labTestId = 0;
 
-    console.log('Accepting test' + amount + ' to ' + receiver);
+    // console.log('Accepting test' + amount + ' to ' + receiver);
 
-    this.setStatus('Initiating transaction... (please wait)');
+    this.setStatus('Initiating acceptLabTest(labTestId)... (please wait)');
     try {
       const deployedHealthereumCore = await this.HealthereumCore.deployed();
-      const transaction = await deployedHealthereumCore.acceptLabTest.sendTransaction(receiver, amount, {from: this.model.account});
+      const transaction = await deployedHealthereumCore.acceptLabTest(labTestId, {from: this.model.account, value: acceptanceFee});
 
       if (!transaction) {
         this.setStatus('Transaction failed!');
@@ -69,7 +71,7 @@ export class HealthereumMarketComponent implements OnInit {
       }
     } catch (e) {
       console.log(e);
-      this.setStatus('Error sending coin; see log.');
+      this.setStatus('Error accepting test; see log.');
     }
   }
 
@@ -86,20 +88,4 @@ export class HealthereumMarketComponent implements OnInit {
       this.setStatus('Error getting balance; see log.');
     }
   }
-
-  clickAddress(e) {
-    this.model.account = e.target.value;
-    this.refreshBalance();
-  }
-
-  setAmount(e) {
-    console.log('Setting amount: ' + e.target.value);
-    this.model.amount = e.target.value;
-  }
-
-  setReceiver(e) {
-    console.log('Setting receiver: ' + e.target.value);
-    this.model.receiver = e.target.value;
-  }
-
 }

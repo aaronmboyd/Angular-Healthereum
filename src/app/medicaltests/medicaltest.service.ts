@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
+import { Web3Service } from '../../util/web3.service';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/do';
@@ -17,7 +18,8 @@ export class MedicalTestService {
 
     customer: ICustomer;
     errorMessage: string;
-    constructor(private _http: HttpClient, private _cusomerService: CustomerService) { }
+    constructor(private _http: HttpClient, private _cusomerService: CustomerService, private web3Service: Web3Service) { }
+
 
     getMedicalTests(): Observable<IMedicalTest[]> {
         return this._http.get<IMedicalTest[]>(this._medicalTestUrl)

@@ -8,6 +8,7 @@ import { WelcomeComponent } from './home/welcome.component';
 import { ProductModule } from './products/product.module';
 import { CustomerModule } from './customers/customer.module'
 import { MedicalTestModule } from './medicaltests/medicaltest.module'
+import { HealthereumModule } from './healthereum/healthereum.module'
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { MedicalTestModule } from './medicaltests/medicaltest.module'
     ]),
     ProductModule,
     MedicalTestModule,
-    CustomerModule
+    CustomerModule,
+    HealthereumModule
   ],
   bootstrap: [AppComponent]
 })

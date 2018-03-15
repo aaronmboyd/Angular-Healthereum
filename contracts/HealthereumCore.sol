@@ -43,6 +43,7 @@ contract HealthereumCore is Ownable {
   }
 
   struct LabFacility {
+    string facilityName;
     uint8 status;
     uint acceptedCount;
     uint completedCount;
@@ -126,9 +127,9 @@ contract HealthereumCore is Ownable {
     return addressToLabFacility[labAddress];
   }
 
-  function addNewFacility(address labAddress, uint8 status) external onlyOwner smartContractEnabled {
+  function addNewFacility(string facilityName, address labAddress, uint8 status) external onlyOwner smartContractEnabled {
     require(addressToLabFacility[labAddress] == 0);
-    uint facilityId = labFacilities.push(LabFacility(status, 0, 0, 0));
+    uint facilityId = labFacilities.push(LabFacility(facilityName, status, 0, 0, 0));
     addressToLabFacility[labAddress] = facilityId;
     NewLabFacility(facilityId, labAddress, status);
   }
@@ -148,8 +149,9 @@ contract HealthereumCore is Ownable {
     RevokedLabFacility(labAddress);
   }
 
-  function getLabFacilityForAddress(address labAddress) external view smartContractEnabled returns (uint8, uint, uint, uint) {
-    return (labFacilities[addressToLabFacility[labAddress]].status,
+  function getLabFacilityForAddress(address labAddress) external view smartContractEnabled returns (string, uint8, uint, uint, uint) {
+    return (labFacilities[addressToLabFacility[labAddress]].facilityName,
+            labFacilities[addressToLabFacility[labAddress]].status,
             labFacilities[addressToLabFacility[labAddress]].acceptedCount,
             labFacilities[addressToLabFacility[labAddress]].completedCount,
             labFacilities[addressToLabFacility[labAddress]].cancelledCount);
@@ -160,6 +162,9 @@ contract HealthereumCore is Ownable {
   }
 
   // LabTest functions
+  function getCountLabTests() external view returns (uint){
+    return labTests.length;
+  }
 
   function postLabTender(string description, string testIPFSHash, string testType, uint8 postcode)
   external payable onlyOwner smartContractEnabled {
