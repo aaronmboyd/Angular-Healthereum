@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {Web3Service} from '../../util/web3.service';
-import healthereum_artifacts from '../../../../build/contracts/HealthereumCore.json';
+import {Web3Service} from '../../../util/web3.service';
+import  healthereum_artifacts  from '../../../../build/contracts/HealthereumCore.json';
 
 @Component({
   selector: 'app-healthereum-market',
