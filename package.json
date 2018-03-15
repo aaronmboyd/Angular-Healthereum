@@ -10,6 +10,10 @@
     "lint": "ng lint --type-check",
     "e2e": "ng e2e"
   },
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "^4.0.0",
@@ -24,7 +28,8 @@
     "bootstrap": "^3.3.7",
     "core-js": "^2.4.1",
     "rxjs": "^5.4.1",
-    "zone.js": "^0.8.14"
+    "zone.js": "^0.8.14",
+    "zeppelin-solidity": "1.7.0"
   },
   "devDependencies": {
     "@angular/cli": "1.2.4",

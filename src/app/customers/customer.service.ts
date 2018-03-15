@@ -6,7 +6,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/map';
 
-import { ICustomer } from './Customer';
+import { ICustomer } from './customer';
 
 @Injectable()
 export class CustomerService {
@@ -22,7 +22,7 @@ export class CustomerService {
 
     getCustomerTests(id: number): Observable<ICustomer> {
         console.log('getCustomerTests ' + id);
-        
+
         return this.getCustomers()
             .map((customers: ICustomer[]) => customers.find(p => p.customerId === id));
     }
