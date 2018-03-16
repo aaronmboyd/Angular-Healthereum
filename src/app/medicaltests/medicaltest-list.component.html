@@ -4,6 +4,7 @@
     </div>
     <div class='panel-body'>
         <div class='table-responsive'>
+                <app-healthereum-market></app-healthereum-market>
             <table class='table'
                     *ngIf='medicalTests && medicalTests.length'>
                 <thead>
@@ -19,7 +20,7 @@
                         <td>{{ medicalTest.testId }}</td>
                         <td>{{ medicalTest.testName }}</td>
                         <td>{{ medicalTest.testStatus }}</td>
-                        <td><app-healthereum-market></app-healthereum-market></td>
+                        <td></td>
                      </tr>
                 </tbody>
             </table>

@@ -1,17 +1,18 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {HealthereumMarketComponent} from './healthereum-market/healthereum-market.component';
-//import {UtilModule} from '../../util/util.module';
+import {UtilModule} from '../../util/util.module';
 import {RouterModule} from '@angular/router';
 
 @NgModule({
   imports: [
+    RouterModule.forChild([
+      { path: 'medicaltests', component: HealthereumMarketComponent },    
+  ]),
     CommonModule,
-    RouterModule,
-    //UtilModule
+    UtilModule
   ],
-  //declarations: [HealthereumMarketComponent],
-  //exports: [HealthereumMarketComponent]
+  declarations: [HealthereumMarketComponent]
 })
 export class HealthereumModule {
 }

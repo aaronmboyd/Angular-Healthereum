@@ -1,1 +1,43 @@
-<button id="Accept" (click)="acceptLabTest()" class="btn btn-primary">Accept</button>
+<div class='panel panel-primary'>
+        <div class='panel-heading'>
+            {{pageTitle}}
+        </div>
+        <div class='panel-body'>
+            <div class='table-responsive'>                    
+                <table class='table'>
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Blood Test</td>
+                            <td>NA</td>
+                            <td><button id="Accept" (click)="acceptLabTest()" class="btn btn-primary">Accept</button></td>
+                         </tr>
+                         <tr>
+                                <td>2</td>
+                                <td>Urine Test</td>
+                                <td>NA</td>
+                                <td><button id="Accept" (click)="acceptLabTest()" class="btn btn-primary">Accept</button></td>
+                         </tr>
+                         <tr>
+                                <td>2</td>
+                                <td>Urine Test</td>
+                                <td>NA</td>
+                                <td><button id="Accept" (click)="acceptLabTest()" class="btn btn-primary">Accept</button></td>
+                         </tr>                         
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div *ngIf='errorMessage' class='alert alert-danger'>
+        Error: {{ errorMessage }}
+    </div>
+    

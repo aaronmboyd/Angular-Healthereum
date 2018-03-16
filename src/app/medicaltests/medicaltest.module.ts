@@ -3,6 +3,8 @@ import { MedicalTestListComponent } from './medicaltest-list.component';
 import { RouterModule } from '@angular/router';
 import { MedicalTestService } from './medicaltest.service';
 import { SharedModule } from './../shared/shared.module';
+import { HealthereumModule } from '../healthereum/healthereum.module'
+
 
 @NgModule({
   imports: [
@@ -10,7 +12,8 @@ import { SharedModule } from './../shared/shared.module';
         { path: 'medicaltests', component: MedicalTestListComponent },
         { path: 'medicaltests/:id', component: MedicalTestListComponent }
     ]),
-     SharedModule
+     SharedModule,
+     HealthereumModule
   ],
   declarations: [
     MedicalTestListComponent

@@ -3,7 +3,6 @@ import {Web3Service} from '../../../util/web3.service';
 import  healthereum_artifacts  from '../../../../build/contracts/HealthereumCore.json';
 
 @Component({
-  selector: 'app-healthereum-market',
   templateUrl: './healthereum-market.component.html',
   styleUrls: ['./healthereum-market.component.css']
 })
@@ -78,14 +77,14 @@ export class HealthereumMarketComponent implements OnInit {
   async refreshBalance() {
     console.log('Refreshing balance');
 
-    try {
-      const deployedHealthereumCore = await this.HealthereumCore.deployed();
-      const HealthereumCoreBalance = await deployedHealthereumCore.getBalance.call(this.model.account);
-      console.log('Found balance: ' + HealthereumCoreBalance);
-      this.model.balance = HealthereumCoreBalance;
-    } catch (e) {
-      console.log(e);
-      this.setStatus('Error getting balance; see log.');
-    }
+    // try {
+    //   const deployedHealthereumCore = await this.HealthereumCore.deployed();
+    //   const HealthereumCoreBalance = await deployedHealthereumCore.getBalance.call(this.model.account);
+    //   console.log('Found balance: ' + HealthereumCoreBalance);
+    //   this.model.balance = HealthereumCoreBalance;
+    // } catch (e) {
+    //   console.log(e);
+    //   this.setStatus('Error getting balance; see log.');
+    // }
   }
 }
