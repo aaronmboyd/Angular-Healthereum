@@ -65,7 +65,7 @@ contract HealthereumCore is Ownable {
   uint8 contractState = uint8(SmartContractState.Enabled);
   uint postLabTenderFee = .0001 ether;
   uint acceptTenderFee = .0001 ether;
-  uint labTestExpiryTime = 3600 seconds;
+  uint labTestExpiryTime = 2 hours;
 
   // Arrays
   LabFacility[] public labFacilities;
@@ -268,7 +268,7 @@ contract HealthereumCore is Ownable {
 
   function acceptLabTest (uint id)
   external payable
-  acceptTenderFeePaid labTestNew(id) labTestNotExpired(id) labFacilityIsValid smartContractEnabled
+  /*acceptTenderFeePaid labTestNew(id) labTestNotExpired(id) labFacilityIsValid smartContractEnabled*/
   {
 
     labTests[id].labTestState = uint8(LabTestState.Accepted);

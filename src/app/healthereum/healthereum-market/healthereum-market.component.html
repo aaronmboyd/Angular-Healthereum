@@ -3,8 +3,8 @@
             {{pageTitle}}
         </div>
         <div class='panel-body'>
-            <div class='table-responsive'>                    
-                <table class='table'>
+            <div class='table-responsive'>
+                <table class='table' *ngIf='labTests && labTests.length'>
                     <thead>
                         <tr>
                             <th>Id</th>
@@ -14,24 +14,12 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Blood Test</td>
-                            <td>NA</td>
-                            <td><button id="Accept" (click)="acceptLabTest()" class="btn btn-primary">Accept</button></td>
-                         </tr>
-                         <tr>
-                                <td>2</td>
-                                <td>Urine Test</td>
-                                <td>NA</td>
-                                <td><button id="Accept" (click)="acceptLabTest()" class="btn btn-primary">Accept</button></td>
-                         </tr>
-                         <tr>
-                                <td>2</td>
-                                <td>Urine Test</td>
-                                <td>NA</td>
-                                <td><button id="Accept" (click)="acceptLabTest()" class="btn btn-primary">Accept</button></td>
-                         </tr>                         
+                         <tr *ngFor='let labTest of labTests'>
+                             <td>{{ labTest[8] }}</td>
+                             <td>{{ labTest[0] }}</td>
+                             <td>{{ labTest[5] == 0 ? 'New' : labTest[5] == 1 ? 'Accepted' : 'Completed'}}</td>
+                             <td><button id="Accept" (click)="acceptLabTest(labTest[8])" class="btn btn-primary">{{labTest[5] == 0 ? 'Accept' : labTest[5] == 1 ? 'Complete' : 'Unknown'}}</button></td>
+                          </tr>
                     </tbody>
                 </table>
             </div>
@@ -40,4 +28,3 @@
     <div *ngIf='errorMessage' class='alert alert-danger'>
         Error: {{ errorMessage }}
     </div>
-    

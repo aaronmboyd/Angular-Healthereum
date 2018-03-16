@@ -8,6 +8,7 @@ import  healthereum_artifacts  from '../../../../build/contracts/HealthereumCore
 })
 export class HealthereumMarketComponent implements OnInit {
   accounts: string[];
+  labTests: any[] = [];
   HealthereumCore: any;
 
   model = {
@@ -30,6 +31,7 @@ export class HealthereumMarketComponent implements OnInit {
     this.web3Service.artifactsToContract(healthereum_artifacts)
       .then((HealthereumCoreAbstraction) => {
         this.HealthereumCore = HealthereumCoreAbstraction;
+        this.getLabTests();
       });
   }
 
@@ -45,7 +47,7 @@ export class HealthereumMarketComponent implements OnInit {
     this.status = status;
   }
 
-  async acceptLabTest() {
+  async acceptLabTest(labTestId) {
     if (!this.HealthereumCore) {
       this.setStatus('HealthereumCore is not loaded, unable to send transaction');
       return;
@@ -54,8 +56,9 @@ export class HealthereumMarketComponent implements OnInit {
     // Acceptance fee is .001 eth (but is required in wei)
     const acceptanceFee = .001 * Math.pow(10,18);
     // Retrieve from view
-    var labTestId = 0;
+    // var labTestId = 0;
 
+    console.log(`labTestId = ${labTestId}`);
     // console.log('Accepting test' + amount + ' to ' + receiver);
 
     this.setStatus('Initiating acceptLabTest(labTestId)... (please wait)');
@@ -71,6 +74,31 @@ export class HealthereumMarketComponent implements OnInit {
     } catch (e) {
       console.log(e);
       this.setStatus('Error accepting test; see log.');
+    }
+  }
+
+  async getLabTests() {
+    if (!this.HealthereumCore) {
+      this.setStatus('HealthereumCore is not loaded, unable to send transaction');
+      return;
+    }
+
+    this.setStatus('Getting lab tests... (please wait)');
+    try {
+      const deployedHealthereumCore = await this.HealthereumCore.deployed();
+
+      var labTest;
+      for(var i = 0 ; i<5; i++){
+        labTest = await deployedHealthereumCore.getLabTest(i, {from: this.model.account});
+        labTest.push(i);
+        this.labTests.push(labTest);
+        console.log(`labTest = ${labTest}`);
+      }
+      console.log(`labTests = ${this.labTests}`);
+
+    } catch (e) {
+      console.log(e);
+      this.setStatus('Error getting test; see log.');
     }
   }
 
