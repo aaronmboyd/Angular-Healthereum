@@ -4,9 +4,9 @@ contract('HealthereumCore', function(accounts) {
 
   let owner = accounts[0];
   let account = accounts[0];
-  let facility = accounts[1];
-  let facility2 = accounts[2];
-  let facility3 = accounts[3];
+  let facility = accounts[3];
+  let facility2 = accounts[4];
+  let facility3 = accounts[5];
   var status = 0
 
   it("should add a single facility", function(){
@@ -22,7 +22,7 @@ contract('HealthereumCore', function(accounts) {
           return instance.getCountLabFacilities.call();})
 
           .then(function(numberOfFacilities){
-            assert.equal(numberOfFacilities, 1);
+            assert.equal(numberOfFacilities, 3); // originally 1
       });
   });
 
@@ -44,7 +44,7 @@ contract('HealthereumCore', function(accounts) {
             return instance.getCountLabFacilities.call();})
 
             .then(function(numberOfFacilities){
-              assert.equal(numberOfFacilities, 3);
+              assert.equal(numberOfFacilities, 5); // 3 originally
       });
   });
 
@@ -93,7 +93,7 @@ contract('HealthereumCore', function(accounts) {
         return instance;})
 
          .then(function(instance){
-            return instance.getLabTest.call(0);})
+            return instance.getLabTest.call(5);})
 
               .then(function(labTest){
                 console.log(`labTest ${labTest}`);
@@ -111,11 +111,11 @@ contract('HealthereumCore', function(accounts) {
       .then(function(instance){
         var acceptPayment = .0001 * Math.pow(10,18);
         console.log(`acceptPayment = ${acceptPayment}`);
-        instance.acceptLabTest(0, {from: facility, value: acceptPayment});
+        instance.acceptLabTest(5, {from: facility, value: acceptPayment});
         return instance;})
 
          .then(function(instance){
-            return instance.getLabTest.call(0);})
+            return instance.getLabTest.call(5);})
 
               .then(function(labTest){
                 console.log(`labTest ${labTest}`);
@@ -128,11 +128,11 @@ contract('HealthereumCore', function(accounts) {
       return MyContract.deployed()
 
       .then(function(instance){
-        instance.completeLabTest(0, "DummyIPFSResults", {from: facility});
+        instance.completeLabTest(5, "DummyIPFSResults", {from: facility});
         return instance;})
 
          .then(function(instance){
-            return instance.getLabTest.call(0);})
+            return instance.getLabTest.call(5);})
 
               .then(function(labTest){
                 console.log(`labTest ${labTest}`);
@@ -149,12 +149,12 @@ contract('HealthereumCore', function(accounts) {
         var tenderPayment = .0001 * Math.pow(10,18);
         instance.postLabTender("CancelMe!", "Q_IPFS_HASH", "X-ray", 3008, {from: owner, value: tenderPayment});
         var acceptPayment = .0001 * Math.pow(10,18);
-        instance.acceptLabTest(1, {from: facility, value: acceptPayment});
-        instance.cancelLabTest(1, {from: facility});
+        instance.acceptLabTest(6, {from: facility, value: acceptPayment});
+        instance.cancelLabTest(6, {from: facility});
         return instance;})
 
          .then(function(instance){
-            return instance.getLabTest.call(1);})
+            return instance.getLabTest.call(6);})
 
               .then(function(labTest){
                 console.log(`labTest ${labTest}`);
