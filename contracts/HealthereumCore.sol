@@ -161,6 +161,37 @@ contract HealthereumCore is Ownable {
     return labFacilities[addressToLabFacility[labAddress]].status;
   }
 
+  // Constructor
+  function HealthereumCore(){
+
+    uint facilityId = labFacilities.push(LabFacility("Laboratory A", 0, 0, 0, 0));
+    addressToLabFacility[0xd05Ce7d4b8B9EF7B9428184a70fEE7A96F5E133a] = facilityId;
+    NewLabFacility(facilityId, 0xd05Ce7d4b8B9EF7B9428184a70fEE7A96F5E133a, 0);
+
+    facilityId = labFacilities.push(LabFacility("Laboratory B", 0, 0, 0, 0));
+    addressToLabFacility[0xD86B7232Fdaac6d6b276f503db6FA0e7D6a1370c] = facilityId;
+    NewLabFacility(facilityId, 0xD86B7232Fdaac6d6b276f503db6FA0e7D6a1370c, 0);
+
+    // Setup creation and expiry time for lab test tender
+    uint creationTime = block.timestamp;
+    uint expiryTime = creationTime + labTestExpiryTime;
+
+    uint id = labTests.push(LabTest("Blood Test", "QmWWQSuPMS6aXCbZKpEjPHPUZN2NjB3YrhJTHsV4X3vb2t", "N/A", "BLD", uint8(3008), uint8(LabTestState.New), creationTime, expiryTime));
+    labTestToFacility[id] = owner;
+
+    id = labTests.push(LabTest("Urine Test", "QmWWQSuPMS6aXCbZKpEjPHPUZN2NjB3YrhJTHsV4X3vb2t", "N/A", "URN", uint8(3008), uint8(LabTestState.New), creationTime, expiryTime));
+    labTestToFacility[id] = owner;
+
+    id = labTests.push(LabTest("Cholestrol Test", "QmWWQSuPMS6aXCbZKpEjPHPUZN2NjB3YrhJTHsV4X3vb2t", "N/A", "LHLHDL", uint8(3008), uint8(LabTestState.New), creationTime, expiryTime));
+    labTestToFacility[id] = owner;
+
+    id = labTests.push(LabTest("Allergy Blood Test", "QmWWQSuPMS6aXCbZKpEjPHPUZN2NjB3YrhJTHsV4X3vb2t", "N/A", "ALLERGY", uint8(3008), uint8(LabTestState.New), creationTime, expiryTime));
+    labTestToFacility[id] = owner;
+
+    id = labTests.push(LabTest("Antibody Test", "QmWWQSuPMS6aXCbZKpEjPHPUZN2NjB3YrhJTHsV4X3vb2t", "N/A", "ABD", uint8(3008), uint8(LabTestState.New), creationTime, expiryTime));
+    labTestToFacility[id] = owner;
+  }
+
   // LabTest functions
   function getCountLabTests() external view returns (uint){
     return labTests.length;
